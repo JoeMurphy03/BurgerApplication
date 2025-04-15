@@ -10,14 +10,18 @@ public class BurgerMain {
     ArrayList<String> cheese;
     ArrayList<String> garnish;
     double price;
+    int burgerAmount;
+    int cheeseAmount;
 
-    public BurgerMain(String bun, ArrayList<String> burger, ArrayList<String> cheese, ArrayList<String> garnish, double price)
+    public BurgerMain(String bun, ArrayList<String> burger, ArrayList<String> cheese, ArrayList<String> garnish, double price, int burgerAmount, int cheeseAmount)
     {
         this.bun = bun;
         this.burger = burger;
         this.cheese = cheese;
         this.garnish = garnish;
         this.price = price;
+        this.burgerAmount = burgerAmount;
+        this.cheeseAmount = cheeseAmount;
     }
 
     //need to set and get them based on inputs from user
@@ -66,49 +70,65 @@ public class BurgerMain {
         this.price = price;
     }
 
-    public String sort(int burgAmount, int cheeseAmount)
+    public int getBurgerAmount() {
+        return burgerAmount;
+    }
+
+    public void setBurgerAmount(int burgerAmount) {
+        this.burgerAmount = burgerAmount;
+    }
+
+    public int getCheeseAmount() {
+        return cheeseAmount;
+    }
+
+    public void setCheeseAmount(int cheeseAmount) {
+        this.cheeseAmount = cheeseAmount;
+    }
+
+    public String sort()
     {
         int garnishAmount = getGarnish().size();
 
-        String burgerString = String.format("%s Price: .99 @ %d : %.2f\n", getBurger().toString(), burgAmount, .99 * burgAmount);
-        String cheeseString = String.format("%s Price: .99 @ %d : %.2f\n", getCheese().toString(), cheeseAmount, .99 * cheeseAmount);
+        String burgerString = String.format("%s Price: .99 @ %d : %.2f\n", getBurger().toString(), getBurgerAmount(), .99 * getBurgerAmount());
+        String cheeseString = String.format("%s Price: .99 @ %d : %.2f\n", getCheese().toString(), getCheeseAmount(), .99 * getCheeseAmount());
         String garnishString = String.format("%s Price: .99 @ %d : %.2f\n", getGarnish().toString(), getGarnish().size(), .99 * getGarnish().size());
 
 
-        if((burgAmount <= cheeseAmount) && (burgAmount <= garnishAmount))
+        if((getBurgerAmount() <= getCheeseAmount()) && (getCheeseAmount() <= garnishAmount))
         {
-            if(cheeseAmount <= garnishAmount)
+            if(getCheeseAmount() <= garnishAmount)
             {
                 //order is burg chz garnish
                 return (burgerString + cheeseString + garnishString);
             }
-            if(garnishAmount <= cheeseAmount)
+            if(garnishAmount <= getCheeseAmount())
             {
                 //order is burg garnish chz
                 return (burgerString + garnishString + cheeseString);
             }
         }
-        if((cheeseAmount <= burgAmount) && (cheeseAmount <= garnishAmount))
+        if((getCheeseAmount() <= getBurgerAmount()) && (getCheeseAmount() <= garnishAmount))
         {
-            if(burgAmount <= garnishAmount)
+            if(getBurgerAmount() <= garnishAmount)
             {
                 //order is cheese burg garnish
                 return (cheeseString + burgerString + garnishString);
             }
-            if(garnishAmount <= burgAmount)
+            if(garnishAmount <= getBurgerAmount())
             {
                 //order is cheese garnish burger
                 return (cheeseString + garnishString + burgerString);
             }
         }
-        if((garnishAmount <= burgAmount) && (garnishAmount <= cheeseAmount))
+        if((garnishAmount <= getBurgerAmount()) && (garnishAmount <= getCheeseAmount()))
         {
-            if(cheeseAmount <= burgAmount)
+            if(getCheeseAmount() <= getBurgerAmount())
             {
                 //order is garnish chs burg
                 return (garnishString + cheeseString + burgerString);
             }
-            if(burgAmount <= cheeseAmount)
+            if(getBurgerAmount() <= getCheeseAmount())
             {
                 //order is garnish burg chz
                 return (garnishString + burgerString + cheeseString);
@@ -123,26 +143,26 @@ public class BurgerMain {
 
 
     //need to display burger price sorted
-    public String displayBurger(int burgerAmount, int cheeseAmount)
+    public String displayBurger()
     {
 
         System.out.print("Created Burger \n\n");
-        System.out.println(getBurger().toString() + "Price: .99 @ " + burgerAmount + " : " + formatDouble(.99 * burgerAmount));
-        System.out.println(getCheese().toString() + "Price: .99 @ " + cheeseAmount + " : " + formatDouble(.99 * cheeseAmount));
+        System.out.println(getBurger().toString() + "Price: .99 @ " + getBurgerAmount() + " : " + formatDouble(.99 * getBurgerAmount()));
+        System.out.println(getCheese().toString() + "Price: .99 @ " + getCheeseAmount() + " : " + formatDouble(.99 * getCheeseAmount()));
         System.out.println(getGarnish().toString() + "Price: .99 @ " + getGarnish().size() + " : " + formatDouble(.99 * getGarnish().size()));
         System.out.println("Total Price : " + formatDouble(getPrice()));
 
         String bunString = String.format("%s Price: .49\n", getBun());
-        String burgerString = String.format("%s Price: .99 @ %d : %.2f\n", getBurger().toString(), burgerAmount, .99 * burgerAmount);
-        String cheeseString = String.format("%s Price: .99 @ %d : %.2f\n", getCheese().toString(), cheeseAmount, .99 * cheeseAmount);
+        String burgerString = String.format("%s Price: .99 @ %d : %.2f\n", getBurger().toString(), getBurgerAmount(), .99 * getBurgerAmount());
+        String cheeseString = String.format("%s Price: .99 @ %d : %.2f\n", getCheese().toString(), getCheeseAmount(), .99 * getCheeseAmount());
         String garnishString = String.format("%s Price: .99 @ %d : %.2f\n", getGarnish().toString(), getGarnish().size(), .99 * getGarnish().size());
         String totalString = ("Total Price: " + formatDouble(getPrice()));
 
-        if(sort(burgerAmount, cheeseAmount) == null)
+        if(sort() == null)
         {
             return bunString + burgerString + cheeseString + garnishString + totalString;
         }
-        return bunString + sort(burgerAmount, cheeseAmount) + totalString;
+        return bunString + sort() + totalString;
     }
 
     public static Double formatDouble(double num) {

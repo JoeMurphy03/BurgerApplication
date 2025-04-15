@@ -134,7 +134,7 @@ public class HelloController {
                 StringBuilder burgerDetails = new StringBuilder();
                 for(BurgerMain burg : burgers)
                 {
-                    burgerDetails.append(burg.displayBurger(burgerAmount(), cheeseAmount())).append("\n\n");
+                    burgerDetails.append(burg.displayBurger()).append("\n\n");
                 }
                 burgerInfo.setText("Created Burger(s)\n" + burgerDetails.toString());
 
@@ -155,11 +155,13 @@ public class HelloController {
 
     private BurgerMain createBurger()
     {
-        BurgerMain newBurger = new BurgerMain(null, null, null, null, 0.00);
+        BurgerMain newBurger = new BurgerMain(null, null, null, null, 0.00, 0, 0);
         addBun(newBurger);
         addPatty(newBurger);
         addCheese(newBurger);
         addGarnish(newBurger);
+        newBurger.setBurgerAmount(burgerAmount());
+        newBurger.setCheeseAmount(cheeseAmount());
 
         return newBurger;
     }

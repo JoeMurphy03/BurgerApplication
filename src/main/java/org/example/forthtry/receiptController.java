@@ -42,7 +42,7 @@ public class receiptController {
 
         StringBuilder burgerDetails = new StringBuilder();
         for(BurgerMain burger : burgers) {
-            burgerDetails.append(burger.displayBurger(burgerAmount, cheeseAmount)).append("\n\n");
+            burgerDetails.append(burger.displayBurger()).append("\n\n");
             //burgerDetails.append(burger.toString());
         }
         this.burgerInfo = burgerDetails.toString();
